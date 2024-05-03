@@ -1,0 +1,3 @@
+fastapi[all]
+a2wsgi
+gunicorn
