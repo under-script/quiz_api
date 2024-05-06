@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # from .config import settings
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./quiz_api.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./hilol_test.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(

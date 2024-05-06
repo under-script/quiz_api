@@ -1,3 +1,5 @@
 fastapi[all]
-a2wsgi
-gunicorn
+SQLAlchemy==2.0.29
+python-multipart==0.0.9
+python-jose[cryptography]
+passlib[bcrypt]

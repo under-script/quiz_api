@@ -3,14 +3,14 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from app.models import Question
-from app.schemas import QuestionCreate, QuestionOutput
+from app.schemas import QuestionIn, QuestionOut
 from app.database import get_db
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
 
-@router.post("/add", status_code=201, response_model=QuestionOutput)
-def question_create(question: QuestionCreate, db: Depends = Depends(get_db)):
+@router.post("/", status_code=201, response_model=QuestionOut)
+def question_create(question: QuestionIn, db: Depends = Depends(get_db)):
     query = db.query(Question).filter(Question.title == question.title)
     if query.first() is not None:
         raise HTTPException(status_code=409, detail=f"This question \"{question.tItle}\" is already exists.")
@@ -22,8 +22,18 @@ def question_create(question: QuestionCreate, db: Depends = Depends(get_db)):
     return question
 
 
-@router.put('/update/{question_id}', status_code=201, response_model=QuestionOutput)
-def update_my_question(question_id: int, question_data: QuestionCreate, db: Depends = Depends(get_db)):
+@router.get("/{question_id}", status_code=status.HTTP_200_OK, response_model=QuestionOut)
+def delete_question(question_id: int, db: Session = Depends(get_db)):
+    query = db.query(Question).filter(Question.question_id == question_id)
+    question = query.first()
+
+    if not question:
+        raise HTTPException(status_code=404, detail="Question has not found")
+    return question
+
+
+@router.put('/{question_id}', status_code=201, response_model=QuestionOut)
+def update_my_question(question_id: int, question_data: QuestionIn, db: Depends = Depends(get_db)):
     query = db.query(Question).filter(Question.question_id == question_id)
     question = query.first()
 
@@ -33,12 +43,6 @@ def update_my_question(question_id: int, question_data: QuestionCreate, db: Depe
 
     db.commit()
     return question
-
-
-@router.get('/all', response_model=list[QuestionOutput])
-def question_list(db: Session = Depends(get_db)):
-    question_list = db.query(Question).all()
-    return question_list
 
 
 @router.delete("/{question_id}", status_code=status.HTTP_202_ACCEPTED)
@@ -53,11 +57,7 @@ def delete_question(question_id: int, db: Session = Depends(get_db)):
     return {"message": "Question has been deleted"}
 
 
-@router.get("/{question_id}", status_code=status.HTTP_200_OK)
-def delete_question(question_id: int, db: Session = Depends(get_db)):
-    query = db.query(Question).filter(Question.question_id == question_id)
-    question = query.first()
-
-    if not question:
-        raise HTTPException(status_code=404, detail="Question has not found")
-    return question
+@router.get('/all', response_model=list[QuestionOut])
+def question_list(db: Session = Depends(get_db)):
+    question_list = db.query(Question).all()
+    return question_list
