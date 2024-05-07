@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
+from starlette import status
 
-from app.models import User
 from app.database import get_db
+from app.models import User
 from app.schemas import UserOut, UserIn
 from services.oauth2 import get_current_user
 from services.utils import password_hash
-from starlette import status
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 

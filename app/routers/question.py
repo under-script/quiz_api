@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
+from app.database import get_db
 from app.models import Question
 from app.schemas import QuestionIn, QuestionOut
-from app.database import get_db
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
