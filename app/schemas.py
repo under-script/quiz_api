@@ -17,34 +17,40 @@ class UserOut(User):
     date_joined: datetime
 
 
-class Master(BaseModel):
+class Title(BaseModel):
     title: str
+
+
+class Date(BaseModel):
     added_date: datetime
 
 
-class QuizIn(BaseModel):
-    title: str
+class Master(Title, Date):
+    pass
+
+
+class QuizIn(Title):
+    pass
 
 
 class QuizOut(Master):
     quiz_id: int
 
 
-class QuestionIn(Master):
+class QuestionIn(Title):
     quiz_id: int
-    title: str
 
 
-class QuestionOut(Master):
+class QuestionOut(QuestionIn, Date):
     question_id: int
 
 
-class OptionIn(Master):
+class OptionIn(Title):
     question_id: int
     is_correct_answer: bool
 
 
-class OptionOut(OptionIn):
+class OptionOut(OptionIn, Date):
     option_id: int
 
 

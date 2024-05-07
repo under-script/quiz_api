@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "quiz-api"
+version = "0.1.0"
+description = ""
+authors = ["Yunusov Abdulmajid <abdulmajidyunusov18@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.111.0"}
+python-multipart = "0.0.9"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+a2wsgi = "1.10.4"
+sqladmin = "^0.16.1"
+
+#[tool.poetry.scripts]
+#dev = "quiz-api app/main"
+#devi = "uvicorn app.main:app --reload"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

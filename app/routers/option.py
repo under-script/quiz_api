@@ -65,5 +65,6 @@ def delete_option(option_id: int, db: Session = Depends(get_db)):
 
 @router.get('/all', response_model=list[OptionOut])
 def option_list(db: Session = Depends(get_db)):
+    print("Salom")
     option_list = db.query(Option).all()
     return option_list

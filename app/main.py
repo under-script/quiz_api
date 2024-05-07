@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 
@@ -58,6 +59,7 @@ class OptionAdmin(ModelView, model=Option):
         Option.option_id,
         Option.question_id,
         Option.title,
+        Option.is_correct_answer,
         Option.added_date,
     ]
 
@@ -66,3 +68,6 @@ admin.add_view(UserAdmin)
 admin.add_view(QuizAdmin)
 admin.add_view(QuestionAdmin)
 admin.add_view(OptionAdmin)
+
+if __name__ == '__main__':
+    uvicorn.run(app=app, host="127.0.0.1", port=8000, reload=True, workers=3)

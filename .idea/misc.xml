@@ -3,8 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.11 (quiz_api)" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="8b587de2-5bc0-4902-bddc-5c515e3911b1" />
-  </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (quiz_api)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (quiz_api)" project-jdk-type="Python SDK" />
 </project>

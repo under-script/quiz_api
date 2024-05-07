@@ -27,7 +27,7 @@ class Quiz(Base, Meta):
 class Question(Base, Meta):
     __tablename__ = 'questions'
     question_id = Column(Integer, primary_key=True)
-    quiz_id = Column(Integer, ForeignKey('quizs.quiz_id'))
+    quiz_id = Column(Integer, ForeignKey('quizzes.quiz_id'))
     title = Column(String, unique=True, nullable=False)
 
 
@@ -36,7 +36,7 @@ class Option(Base, Meta):
     option_id = Column(Integer, primary_key=True)
     question_id = Column(Integer, ForeignKey('questions.question_id'))
     title = Column(String, unique=True, nullable=False)
-    is_correct = Column(Boolean, default=False)
+    is_correct_answer = Column(Boolean, default=False)
 
 
 Base.metadata.create_all(bind=engine)
