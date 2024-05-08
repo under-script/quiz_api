@@ -9,6 +9,13 @@ from app.schemas import OptionOut, OptionIn
 router = APIRouter(prefix="/options", tags=["options"])
 
 
+@router.get('/all', response_model=list[OptionOut])
+def option_list(db: Session = Depends(get_db)):
+    print("Salom")
+    option_list = db.query(Option).all()
+    return option_list
+
+
 @router.post("/", status_code=201, response_model=OptionOut)
 def option_create(option: OptionIn, db: Depends = Depends(get_db)):
     query = db.query(Option).filter(Option.title == option.title)
@@ -61,10 +68,3 @@ def delete_option(option_id: int, db: Session = Depends(get_db)):
     option.delete()
     db.commit()
     return {"message": "Option has been deleted"}
-
-
-@router.get('/all', response_model=list[OptionOut])
-def option_list(db: Session = Depends(get_db)):
-    print("Salom")
-    option_list = db.query(Option).all()
-    return option_list

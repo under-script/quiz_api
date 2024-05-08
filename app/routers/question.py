@@ -9,6 +9,12 @@ from app.schemas import QuestionIn, QuestionOut
 router = APIRouter(prefix="/questions", tags=["questions"])
 
 
+@router.get('/all', response_model=list[QuestionOut])
+def question_list(db: Session = Depends(get_db)):
+    question_list = db.query(Question).all()
+    return question_list
+
+
 @router.post("/", status_code=201, response_model=QuestionOut)
 def question_create(question: QuestionIn, db: Depends = Depends(get_db)):
     query = db.query(Question).filter(Question.title == question.title)
@@ -55,9 +61,3 @@ def delete_question(question_id: int, db: Session = Depends(get_db)):
     question.delete()
     db.commit()
     return {"message": "Question has been deleted"}
-
-
-@router.get('/all', response_model=list[QuestionOut])
-def question_list(db: Session = Depends(get_db)):
-    question_list = db.query(Question).all()
-    return question_list
