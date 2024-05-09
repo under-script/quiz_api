@@ -4,7 +4,7 @@ from starlette import status
 
 from app.database import get_db
 from app.models import Question
-from app.schemas import QuestionIn, QuestionOut
+from app.schemas import QuestionIn, QuestionOut, ResultOut
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
@@ -61,3 +61,8 @@ def delete_question(question_id: int, db: Session = Depends(get_db)):
     question.delete()
     db.commit()
     return {"message": "Question has been deleted"}
+
+
+@router.post('/')
+def result(results: ResultOut):
+    return results
